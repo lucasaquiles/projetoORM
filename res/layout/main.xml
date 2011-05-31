@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	
+	
+	<EditText android:text="" android:id="@+id/editTextProdutoNome"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:hint="nome" android:layout_alignParentTop="true"
+		></EditText>
+		
+		<EditText android:text="" android:layout_below="@+id/editTextProdutoNome"
+		android:hint="quantidade" android:id="@+id/editTextQuantidade"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></EditText>
+		
+		<EditText android:text="" 
+		android:hint="preco" android:layout_below="@+id/editTextQuantidade"
+		android:id="@+id/editPreco"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></EditText>
+		
+		
+		<Spinner android:id="@+id/spinnerCategoria" 
+		
+		android:layout_below="@+id/editPreco" 
+		android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_width="fill_parent"></Spinner>
+		
+		<Button android:id="@+id/salvar"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/spinnerCategoria"
+		android:text="salvar"
+		android:layout_alignParentRight="true"
+		></Button>
+		
+		
+</RelativeLayout>
