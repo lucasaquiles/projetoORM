@@ -48,7 +48,7 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements
 
 			spinnerCategorias.setAdapter(new ArrayAdapter<Categoria>(
 					getApplicationContext(),
-					android.R.layout.simple_dropdown_item_1line, unit.catDao
+					android.R.layout.simple_dropdown_item_1line, unit.getCategoriaDao()
 							.queryForAll()));
 
 		} catch (Exception e) {
@@ -72,7 +72,7 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements
 				p.setCategoria((Categoria)spinnerCategorias.getSelectedItem());
 				
 				
-				if(unit.uDao.create(p) == 1){
+				if(unit.getProdutoDao().create(p) == 1){
 					Toast.makeText(getApplicationContext(), "Aee, salvou!", Toast.LENGTH_SHORT).show();
 					
 					
