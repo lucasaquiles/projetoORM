@@ -14,10 +14,9 @@ import android.widget.Toast;
 import br.edu.ifpi.beans.Categoria;
 import br.edu.ifpi.beans.Produto;
 import br.edu.ifpi.database.DatabaseHelper;
+import br.edu.ifpi.database.UnitOfWork;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
 
 public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements
 		OnClickListener {
@@ -26,11 +25,13 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements
 	EditText txtNome, txtPreco, txtQuantidade;
 	Spinner spinnerCategorias;
 	Button btnSalvar;
+	UnitOfWork unit;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		unit = new UnitOfWork(this);
+		
 		setContentView(R.layout.cadastro_produto);
 
 		txtNome = (EditText) findViewById(R.id.editTextProdutoNome);
@@ -44,12 +45,10 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements
 		btnSalvar.setOnClickListener(this);
 
 		try {
-			Dao<Categoria, Integer> catDao = DaoManager.createDao(getHelper()
-					.getConnectionSource(), Categoria.class);
 
 			spinnerCategorias.setAdapter(new ArrayAdapter<Categoria>(
 					getApplicationContext(),
-					android.R.layout.simple_dropdown_item_1line, catDao
+					android.R.layout.simple_dropdown_item_1line, unit.catDao
 							.queryForAll()));
 
 		} catch (Exception e) {
@@ -66,8 +65,6 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements
 		if (btnSalvar == v) {
 			
 			try {
-				Dao<Produto, Integer> uDao = DaoManager.createDao(getHelper().getConnectionSource(), Produto.class);
-				
 				Produto p = new Produto();
 				p.setNome(txtNome.getText().toString()); 
 				p.setQuantidade(Integer.parseInt(txtQuantidade.getText().toString()));
@@ -75,7 +72,7 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements
 				p.setCategoria((Categoria)spinnerCategorias.getSelectedItem());
 				
 				
-				if(uDao.create(p) == 1){
+				if(unit.uDao.create(p) == 1){
 					Toast.makeText(getApplicationContext(), "Aee, salvou!", Toast.LENGTH_SHORT).show();
 					
 					
